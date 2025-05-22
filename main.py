@@ -96,5 +96,6 @@ if __name__ == '__main__':
     ffmpeg_process = subprocess.Popen(
         ffmpeg_cmd,
         stdin=subprocess.PIPE,
+        creationflags=subprocess.CREATE_NO_WINDOW,
     )
     capture_audio_to_ffmpeg(ffmpeg_process=ffmpeg_process)
