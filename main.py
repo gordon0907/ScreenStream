@@ -7,7 +7,7 @@ import numpy as np
 import soundcard as sc
 
 # Define RTMP destination URL
-rtmp_url = ...  # Replace with your RTMP server URL
+rtmp_url: str = ...  # Replace with your RTMP server URL
 
 # Audio capture configuration
 SAMPLE_RATE = 48000  # Sample rate in Hz
