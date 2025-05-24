@@ -3,6 +3,7 @@ import subprocess
 from atexit import register
 from contextlib import suppress
 
+# noinspection PyPackageRequirements
 import numpy as np
 import soundcard as sc
 
@@ -75,7 +76,7 @@ ffmpeg_cmd = [
 ]
 
 
-def capture_audio_to_ffmpeg(ffmpeg_process):
+def capture_audio_to_ffmpeg(ffmpeg_proc: subprocess.Popen):
     """
     Capture system audio using loopback device and stream it into ffmpeg.
     """
@@ -87,7 +88,7 @@ def capture_audio_to_ffmpeg(ffmpeg_process):
         while True:
             try:
                 audio_data: np.ndarray = recorder.record(numframes=NUM_FRAMES)
-                ffmpeg_process.stdin.write(audio_data.tobytes())
+                ffmpeg_proc.stdin.write(audio_data.tobytes())
             except Exception as err:
                 print(f"Audio capture error: {err}")
 
@@ -98,4 +99,4 @@ if __name__ == '__main__':
         stdin=subprocess.PIPE,
         creationflags=subprocess.CREATE_NO_WINDOW,
     )
-    capture_audio_to_ffmpeg(ffmpeg_process=ffmpeg_process)
+    capture_audio_to_ffmpeg(ffmpeg_proc=ffmpeg_process)
